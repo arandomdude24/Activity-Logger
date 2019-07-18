@@ -1,15 +1,19 @@
 #pragma once
 #include <string>
+#include <vector>
+
 class time {
 	int year;
 	int month;
 	int day;
-	std::string hour;
+	int hour;
+	int minute;
 	bool am;
 
-	time(std::string new_time);	
-	
+	time(std::vector<std::string> new_time);
+
+public:
+	int get_hour();
+	int get_minute();
 	std::string to_string();
-
 };
-
