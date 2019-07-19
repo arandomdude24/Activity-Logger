@@ -1,10 +1,19 @@
 #include "time.h"
 #include <vector>
 #include <sstream>
+#include <iostream>
+
+time::time() {}
 
 time::time(std::vector<std::string> new_time) {
 	std::vector<std::string> date = split(new_time[0], '/');
 	std::vector<std::string> local = split(new_time[1], ':');
+
+	for (int i = 0; i < date.size(); i++) 
+		std::cout << "Date: " + date[i];
+
+	for (int i = 0; i < local.size(); i++)
+		std::cout << "Local: " + local[i];
 
 	month = stoi(date[0]);
 	day = stoi(date[1]);
@@ -18,7 +27,7 @@ time::time(std::vector<std::string> new_time) {
 		am = false;
 }
 
-std::vector<std::string> split(const std::string& s, char delim) {
+std::vector<std::string> time::split(const std::string& s, char delim) {
 	std::vector<std::string> result;
 	std::stringstream ss(s);
 	std::string item;
@@ -43,7 +52,7 @@ std::string time::to_string() {
 	"September", "October", "November", "December"};
 	std::string time_output;
 	time_output = 
-		"The time is " + months[month - 1] + ' ' + std::to_string(day) + 
+		months[month - 1] + ' ' + std::to_string(day) + 
 		", " + std::to_string(year) + ' ' + std::to_string(hour) 
 		+ ':' + std::to_string(minute);
 	if (am)
