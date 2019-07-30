@@ -27,8 +27,8 @@ int activity::get_duration() {
 std::string activity::to_string() {
 	std::string s;
 	s = "Name: " + get_name() + "\n" +
-		"Time started: " + start.to_string() + "\n" +
-		"Time ended: " + end.to_string() + "\n" +
+		"Time started: " + start.to_string() +
+		"Time ended: " + end.to_string() +
 		"Duration: " + std::to_string(duration) + " minutes \n";
 	if (get_category() != "")
 		s += "Category: " + get_category() + "\n";

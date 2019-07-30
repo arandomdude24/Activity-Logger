@@ -2,18 +2,13 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <string>
 
 time::time() {}
 
 time::time(std::vector<std::string> new_time) {
 	std::vector<std::string> date = split(new_time[0], '/');
 	std::vector<std::string> local = split(new_time[1], ':');
-
-	for (int i = 0; i < date.size(); i++) 
-		std::cout << "Date: " + date[i];
-
-	for (int i = 0; i < local.size(); i++)
-		std::cout << "Local: " + local[i];
 
 	month = stoi(date[0]);
 	day = stoi(date[1]);
@@ -51,13 +46,18 @@ std::string time::to_string() {
 	{ "January", "Feburary", "March", "April", "May", "June", "July", "August", 
 	"September", "October", "November", "December"};
 	std::string time_output;
+	
+	std::string min = std::to_string(minute);
+	if (minute < 10)
+		min.insert(0, 1, '0');
+
 	time_output = 
 		months[month - 1] + ' ' + std::to_string(day) + 
 		", " + std::to_string(year) + ' ' + std::to_string(hour) 
-		+ ':' + std::to_string(minute);
+		+ ':' + min;
 	if (am)
 		time_output += " AM";
 	else
-		time_output += " PM";
+		time_output += " PM\n";
 	return time_output;
 }
