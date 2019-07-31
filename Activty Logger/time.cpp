@@ -33,12 +33,43 @@ std::vector<std::string> time::split(const std::string& s, char delim) {
 
 	return result;
 }
-int time::get_hour() {
-	return hour;
+
+std::string time::get_month() {
+	return std::to_string(month);
 }
 
-int time::get_minute() {
-	return minute;
+std::string time::get_day() {
+	return std::to_string(day);
+}
+
+std::string time::get_year() {
+	return std::to_string(year);
+}
+
+std::string time::get_hour() {
+	return std::to_string(hour);
+}
+
+std::string time::get_minute() {
+	std::string min = std::to_string(minute);
+	if (minute < 10)
+		min.insert(0, 1, '0');
+	return min;
+}
+
+std::string time::get_am() {
+	if (am)
+		return "a";
+	else
+		return "p";
+}
+
+std::string time::text_string() {
+	std::string s;
+	s = get_month() + "/" + get_day() + "/" + get_year() + "\n" +
+		get_hour() + ":" + get_minute() + "\n" +
+		get_am() + "\n";
+	return s;
 }
 
 std::string time::to_string() {
@@ -47,14 +78,10 @@ std::string time::to_string() {
 	"September", "October", "November", "December"};
 	std::string time_output;
 	
-	std::string min = std::to_string(minute);
-	if (minute < 10)
-		min.insert(0, 1, '0');
-
 	time_output = 
-		months[month - 1] + ' ' + std::to_string(day) + 
-		", " + std::to_string(year) + ' ' + std::to_string(hour) 
-		+ ':' + min;
+		months[month - 1] + ' ' + get_day() + 
+		", " + get_year() + ' ' + get_hour() 
+		+ ':' + get_minute();
 	if (am)
 		time_output += " AM";
 	else

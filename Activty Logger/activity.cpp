@@ -2,14 +2,21 @@
 #include "time.h"
 #include <string>
 
-activity::activity(std::string new_name, time begin, time fin, std::string new_category) {
+activity::activity(std::string id, std::string new_name, time begin, time fin, std::string new_category, int length) {
+	identity = id;
 	name = new_name;
 	start = begin;
 	end = fin;
 	category = new_category;
+	if (length != -1)
+		duration = length;
+	else
+		duration = (stoi(end.get_hour()) - stoi(begin.get_hour())) * 60 +
+		stoi(end.get_minute()) - stoi(begin.get_minute());
+}
 
-	duration = (end.get_hour() - begin.get_hour()) * 60 +
-		end.get_minute() - begin.get_minute();
+std::string activity::get_id() {
+	return identity;
 }
 
 std::string activity::get_name() {
@@ -24,13 +31,24 @@ int activity::get_duration() {
 	return duration;
 }
 
+std::string activity::text_string() {
+	std::string s;
+	s = get_id() + "\n" +
+		get_name() + "\n" +
+		start.text_string() +
+		end.text_string() +
+		std::to_string(duration) + "\n" +
+		get_category() + "\n";
+	return s;
+}
+
 std::string activity::to_string() {
 	std::string s;
-	s = "Name: " + get_name() + "\n" +
+	s = "Identifier: " + get_id() + "\n" +
+		"Name: " + get_name() + "\n" +
 		"Time started: " + start.to_string() +
 		"Time ended: " + end.to_string() +
-		"Duration: " + std::to_string(duration) + " minutes \n";
-	if (get_category() != "")
-		s += "Category: " + get_category() + "\n";
+		"Duration: " + std::to_string(duration) + " minutes \n" +
+		"Category: " + get_category() + "\n";
 	return s;
 }

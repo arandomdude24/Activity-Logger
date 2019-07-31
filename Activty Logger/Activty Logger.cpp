@@ -4,14 +4,15 @@
 #include <iostream>
 #include "functions.h" 
 #include "activity.h"
-#include <fstream>
 
 int main()
 {
 	int response;
 	bool close = false;
-	std::ofstream file;
-	file.open("list.txt");
+
+	std::vector<activity> list = {};
+
+
 
 	while (!close) {
 		std::cout << "Choose one of the following options: \n"
