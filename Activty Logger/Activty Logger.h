@@ -9,4 +9,7 @@ extern std::vector<activity> list;
 extern std::vector<std::string> names;
 extern std::vector<std::string> categories;
 
+std::string names_string(std::vector<std::string> name);
+std::string categories_string(std::vector<std::string> cat);
+
 #endif

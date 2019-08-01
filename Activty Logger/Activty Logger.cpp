@@ -15,6 +15,20 @@ std::vector<activity> list = {};
 std::vector<std::string> names = {};
 std::vector<std::string> categories = {};
 
+std::string names_string(std::vector<std::string> name) {
+	std::string s = "";
+	for (int i = 0; i < name.size(); i++)
+		s.append(std::to_string(i + 1) + ". " + name[i] + "\n");
+	return s;
+}
+
+std::string categories_string(std::vector<std::string> cat) {
+	std::string s = "";
+	for (int i = 0; i < cat.size(); i++)
+		s.append(std::to_string(i + 1) + "." + cat[i] + "\n");
+	return s;
+}
+
 int main()
 {
 	int response;
@@ -65,7 +79,7 @@ int main()
 				new_entry();
 				break;
 			case 2:
-				//view_data();
+				view_data();
 				break;
 			case 3:
 				//edit_data();

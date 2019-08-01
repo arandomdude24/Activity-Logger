@@ -17,10 +17,11 @@ void new_entry() {
 	std::string morning_start;
 	std::string morning_end;
 	std::string category;
-	
+
 	std::cout << "Enter the identifier name: ";
 	std::cin >> id;
-	std::cout << "Enter the activity name: ";
+	std::cout << "Enter a new activity name or a previous one from the list below\n\n" <<
+		"Name List:\n" << names_string(names) << "\n";
 	std::cin >> name; 
 	std::cout << "Enter the date in the following format mm/dd/yyyy: ";
 	std::cin >> date;
@@ -32,9 +33,13 @@ void new_entry() {
 	std::cin >> hour_end;
 	std::cout << "Enter a for AM and p for PM: ";
 	std::cin >> morning_end;
-	std::cout << "Enter a category name (Press N for no response): ";
+
+	std::cout << "Enter a new category name or a previous one from the list below\n";
+	std::cout << "Press N for no response\n\n";
+	std::cout << "Category List:\n" << categories_string(categories) << "\n";
 	std::cin >> category;
-	std::cout << "Event has been created and saved\n";
+
+	std::cout << "Event has been created and saved\n\n";
 
 	if (category == "N")
 		category = "";
@@ -59,6 +64,34 @@ void new_entry() {
 	}
 	else
 		std::cout << "This isn't working";
+}
+
+void view_data() {
+	std::string response = "";
+	std::cout << "View data by: \n"
+		<< "1. Day \n"
+		<< "2. Category Name \n"
+		<< "3. Activity Name \n"
+		<< "4. Unique Name \n";
+	std::cin >> response;
+
+	switch (response) {
+		case 1:
+			//day operation
+			break;
+		case 2:
+			//category operation
+			break;
+		case 3:
+			//activity operation
+			break;
+		case 4:
+			//unique operation
+			break;
+		default:
+			std::cout << "Please enter a valid number";
+			break;
+	}
 }
 
 void reset() {
