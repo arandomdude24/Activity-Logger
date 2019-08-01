@@ -1,27 +1,62 @@
 // Activty Logger.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include <iostream>
 #include "functions.h" 
 #include "activity.h"
+#include "time.h"
+#include "Activty Logger.h"
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+std::vector<activity> list = {};
+std::vector<std::string> names = {};
+std::vector<std::string> categories = {};
 
 int main()
 {
 	int response;
 	bool close = false;
 
-	std::vector<activity> list = {};
+	list = {};
+	names = {};
+	categories = {};
 
+	std::string line;
+	std::ifstream file("list.txt");
 
+	if (file.is_open()) {
+		std::vector<std::string> task = {};
+		while (std::getline(file, line)) {
+			task.push_back(line);
+			if (task.size() == 10) {
+				std::vector<std::string> start = { task[2], task[3], task[4] };
+				std::vector<std::string> end = { task[5], task[6], task[7] };
+
+				time begin = time(start);
+				time finish = time(end);
+				activity event = activity(task[0], task[1], begin, finish, task[8], stoi(task[9]));
+
+				list.push_back(event);
+				if (std::find(names.begin(), names.end(), task[1]) == names.end())
+					names.push_back(task[1]);
+				if (task[8] != "" && std::find(categories.begin(), categories.end(), task[8]) == categories.end())
+					categories.push_back(task[8]);
+				task = {};
+			}
+		}
+		file.close();
+	}
 
 	while (!close) {
 		std::cout << "Choose one of the following options: \n"
 			<< "1. Enter a new activity \n"
-			<< "2. Add a new category \n"
-			<< "3. View data \n"
-			<< "4. Edit data \n"
-			<< "5. Reset storage \n"
-			<< "6. Quit \n\n";
+			<< "2. View data \n"
+			<< "3. Edit data \n"
+			<< "4. Reset storage \n"
+			<< "5. Quit \n\n";
 
 		std::cin >> response;
 
@@ -29,19 +64,16 @@ int main()
 			case 1: 
 				new_entry();
 				break;
-			case 2: 
-				//new_category();
-				break;
-			case 3:
+			case 2:
 				//view_data();
 				break;
-			case 4:
+			case 3:
 				//edit_data();
 				break;
-			case 5:
-				//reset();
+			case 4:
+				reset();
 				break;
-			case 6:
+			case 5:
 				close = true;
 				break;
 			default:

@@ -37,8 +37,8 @@ std::string activity::text_string() {
 		get_name() + "\n" +
 		start.text_string() +
 		end.text_string() +
-		std::to_string(duration) + "\n" +
-		get_category() + "\n";
+		get_category() + "\n" +
+		std::to_string(duration) + "\n";
 	return s;
 }
 
@@ -48,7 +48,7 @@ std::string activity::to_string() {
 		"Name: " + get_name() + "\n" +
 		"Time started: " + start.to_string() +
 		"Time ended: " + end.to_string() +
-		"Duration: " + std::to_string(duration) + " minutes \n" +
-		"Category: " + get_category() + "\n";
+		"Category: " + get_category() + "\n" +
+		"Duration: " + std::to_string(duration) + " minutes" +"\n";
 	return s;
 }
