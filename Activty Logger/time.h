@@ -22,7 +22,5 @@ public:
 	std::string get_am();
 	std::string text_string();
 	std::string to_string();
-
-private:
 	std::vector<std::string> split(const std::string& s, char delim);
 };

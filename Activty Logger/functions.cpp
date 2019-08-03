@@ -76,8 +76,31 @@ void view_data() {
 	std::cin >> response;
 
 	switch (stoi(response)) {
-		case 1:
-			//by_date();
+		case 1: {
+			std::string response;
+			std::vector<activity> result = {};
+			std::string output;
+
+			std::cout << "Enter a date (mm/dd/yyyy): ";
+			std::cin >> response;
+
+			for (activity a : list) {
+				if (response.compare(a.get_date()) == 0) {
+					result.push_back(a);
+					output.append(a.to_string() + "\n");
+				}
+			}
+			if (output == "") {
+				std::cout << "No results were found. Press any key to return to menu. ";
+				std::cin >> response;
+			}
+			else {
+				std::cout << "The search returned the following results: \n\n" << output;
+				std::cout << "Press any key to return to the menu. ";
+				std::cin >> response;
+				std::cout << "\n";
+			}
+		}
 			break;
 		case 2:
 			//by_category();
@@ -87,27 +110,27 @@ void view_data() {
 			break;
 		case 4: {
 			std::string id;
-			std::vector<activity> result = {};
-			std::string restart;
+			std::string output = "";
 
 			std::cout << "Enter an ID or a partial ID: ";
 			std::cin >> id;
 
 			for (activity a : list) {
-				if (a.get_id().find(id) != std::string::npos)
-					result.push_back(a);
+				if (a.get_id().find(id) != std::string::npos) {
+					output.append(a.to_string() + "\n");
+				}
 			}
 
-			if (result.size() == 0) {
+			if (output == "") {
 				std::cout << "No results were found. Press any key to return to menu. ";
-				std::cin >> restart;
+				std::cin >> id;
+				std::cout << "\n";
 			}
 			else {
-				std::cout << "The search returned the following results: \n";
-				for (activity a : result)
-					std::cout << a.to_string() << "\n";
+				std::cout << "The search returned the following results: \n\n" << output;
 				std::cout << "Press any key to return to the menu. ";
-				std::cin >> restart;
+				std::cin >> id;
+				std::cout << "\n";
 			}
 			break;
 		}

@@ -35,11 +35,17 @@ std::vector<std::string> time::split(const std::string& s, char delim) {
 }
 
 std::string time::get_month() {
-	return std::to_string(month);
+	std::string mon = std::to_string(month);
+	if (month < 10)
+		mon.insert(0, 1, '0');
+	return mon;
 }
 
 std::string time::get_day() {
-	return std::to_string(day);
+	std::string today = std::to_string(day);
+	if (day < 10)
+		today.insert(0, 1, '0');
+	return today;
 }
 
 std::string time::get_year() {

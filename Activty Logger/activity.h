@@ -16,6 +16,7 @@ public:
 	std::string get_id();
 	std::string get_name();
 	std::string get_category();
+	std::string get_date();
 	int get_duration();
 	std::string text_string();
 	std::string to_string();

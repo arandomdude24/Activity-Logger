@@ -35,6 +35,10 @@ std::string activity::get_category() {
 	return category;
 }
 
+std::string activity::get_date() {
+	return start.get_month() + "/" + start.get_day() + "/" + start.get_year();
+}
+
 int activity::get_duration() {
 	return duration;
 }
