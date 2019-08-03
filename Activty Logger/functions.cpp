@@ -7,6 +7,8 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <iterator>
+#include <map>
 
 void new_entry() {
 	std::string id;
@@ -20,8 +22,8 @@ void new_entry() {
 
 	std::cout << "Enter the identifier name: ";
 	std::cin >> id;
-	std::cout << "Enter a new activity name or a previous one from the list below\n\n" <<
-		"Name List:\n" << names_string(names) << "\n";
+	std::cout << "Enter a new activity name or a previous one from the list below\n\n" 
+		<< names_string(names);
 	std::cin >> name; 
 	std::cout << "Enter the date in the following format mm/dd/yyyy: ";
 	std::cin >> date;
@@ -36,7 +38,7 @@ void new_entry() {
 
 	std::cout << "Enter a new category name or a previous one from the list below\n";
 	std::cout << "Press N for no response\n\n";
-	std::cout << "Category List:\n" << categories_string(categories) << "\n";
+	std::cout << categories_string(categories);
 	std::cin >> category;
 
 	std::cout << "Event has been created and saved\n\n";
@@ -80,6 +82,8 @@ void view_data() {
 			std::string response;
 			std::vector<activity> result = {};
 			std::string output;
+			std::map<std::string, int> category_map = {};
+			std::map<std::string, int> event_map = {};
 
 			std::cout << "Enter a date (mm/dd/yyyy): ";
 			std::cin >> response;
@@ -88,6 +92,8 @@ void view_data() {
 				if (response.compare(a.get_date()) == 0) {
 					result.push_back(a);
 					output.append(a.to_string() + "\n");
+					category_map[a.get_category()] += a.get_duration();
+					event_map[a.get_name()] += a.get_duration();
 				}
 			}
 			if (output == "") {
@@ -95,19 +101,74 @@ void view_data() {
 				std::cin >> response;
 			}
 			else {
-				std::cout << "The search returned the following results: \n\n" << output;
-				std::cout << "Press any key to return to the menu. ";
+				std::cout << "The search returned the following results: \n\n" << output << "\n";
+
+				std::map<std::string, int>::iterator itr;
+				std::cout << "Category breakdown: \n";
+				for (itr = category_map.begin(); itr != category_map.end(); itr++)
+					std::cout << itr->first << ": " << itr->second << " minutes \n";
+				std::cout << "\nEvent breakdown: \n";
+				for (itr = event_map.begin(); itr != event_map.end(); itr++)
+					std::cout << itr->first << ": " << itr->second << " minutes \n";
+				
+				std::cout << "\nPress any key to return to the menu. ";
 				std::cin >> response;
 				std::cout << "\n";
 			}
 		}
 			break;
-		case 2:
-			//by_category();
+		case 2: {
+			std::string response;
+			std::vector <activity> result = {};
+			std::string output;
+
+			std::cout << "Enter a category name from the list below \n\n";
+			std::cout << categories_string(categories);
+			std::cin >> response;
+
+			if (std::find(categories.begin(), categories.end(), response) != categories.end()) {
+				for (activity a : list) {
+					if (response.compare(a.get_category()) == 0) {
+						result.push_back(a);
+						output.append(a.to_string() + "\n");
+					}
+				}
+				std::cout << "The search returned the following results: \n\n" << output;
+				std::cout << "Press any key to return the menu. "; 
+				std::cin >> response; std::cout << "\n";
+			}
+			else {
+				std::cout << "That category does not exist. Press any button to return to the menu. ";
+				std::cin >> response; std::cout << "\n";
+			}
 			break;
-		case 3:
-			//by_activity();
+		}
+		case 3: {
+			std::string response;
+			std::vector <activity> result = {};
+			std::string output;
+
+			std::cout << "Enter an event name from the list below \n\n";
+			std::cout << names_string(names);
+			std::cin >> response;
+
+			if (std::find(names.begin(), names.end(), response) != names.end()) {
+				for (activity a : list) {
+					if (response.compare(a.get_name()) == 0) {
+						result.push_back(a);
+						output.append(a.to_string() + "\n");
+					}
+				}
+				std::cout << "The search returned the following results: \n\n" << output;
+				std::cout << "Press any key to return the menu. ";
+				std::cin >> response; std::cout << "\n";
+			}
+			else {
+				std::cout << "That name does not exist. Press any button to return to the menu. ";
+				std::cin >> response; std::cout << "\n";
+			}
 			break;
+		}
 		case 4: {
 			std::string id;
 			std::string output = "";
