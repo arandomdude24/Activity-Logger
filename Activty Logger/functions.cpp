@@ -75,19 +75,42 @@ void view_data() {
 		<< "4. Unique Name \n";
 	std::cin >> response;
 
-	switch (response) {
+	switch (stoi(response)) {
 		case 1:
-			//day operation
+			//by_date();
 			break;
 		case 2:
-			//category operation
+			//by_category();
 			break;
 		case 3:
-			//activity operation
+			//by_activity();
 			break;
-		case 4:
-			//unique operation
+		case 4: {
+			std::string id;
+			std::vector<activity> result = {};
+			std::string restart;
+
+			std::cout << "Enter an ID or a partial ID: ";
+			std::cin >> id;
+
+			for (activity a : list) {
+				if (a.get_id().find(id) != std::string::npos)
+					result.push_back(a);
+			}
+
+			if (result.size() == 0) {
+				std::cout << "No results were found. Press any key to return to menu. ";
+				std::cin >> restart;
+			}
+			else {
+				std::cout << "The search returned the following results: \n";
+				for (activity a : result)
+					std::cout << a.to_string() << "\n";
+				std::cout << "Press any key to return to the menu. ";
+				std::cin >> restart;
+			}
 			break;
+		}
 		default:
 			std::cout << "Please enter a valid number";
 			break;

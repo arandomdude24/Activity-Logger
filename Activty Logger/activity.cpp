@@ -10,7 +10,15 @@ activity::activity(std::string id, std::string new_name, time begin, time fin, s
 	category = new_category;
 	if (length != -1)
 		duration = length;
-	else
+
+	else if (begin.get_am() == "a" && fin.get_am() == "p") {
+		duration = (12 - stoi(begin.get_hour())) * 60 - stoi(begin.get_minute());
+		if (fin.get_hour() == "12")
+			duration += stoi(fin.get_minute());
+		else
+			duration += stoi(fin.get_hour()) * 60 + stoi(fin.get_minute());
+	}
+	else 
 		duration = (stoi(end.get_hour()) - stoi(begin.get_hour())) * 60 +
 		stoi(end.get_minute()) - stoi(begin.get_minute());
 }
