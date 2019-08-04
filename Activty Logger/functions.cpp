@@ -121,6 +121,7 @@ void view_data() {
 			std::string response;
 			std::vector <activity> result = {};
 			std::string output;
+			std::map<std::string, int> category_day = {};
 
 			std::cout << "Enter a category name from the list below \n\n";
 			std::cout << categories_string(categories);
@@ -131,10 +132,16 @@ void view_data() {
 					if (response.compare(a.get_category()) == 0) {
 						result.push_back(a);
 						output.append(a.to_string() + "\n");
+						category_day[a.get_date()] += a.get_duration();
 					}
 				}
 				std::cout << "The search returned the following results: \n\n" << output;
-				std::cout << "Press any key to return the menu. "; 
+
+				std::map<std::string, int>::iterator itr;
+				std::cout << "\nCategory breakdown: \n";
+				for (itr = category_day.begin(); itr != category_day.end(); itr++)
+					std::cout << itr->first << ": " << itr->second << " minutes \n";
+				std::cout << "\nPress any key to return the menu. "; 
 				std::cin >> response; std::cout << "\n";
 			}
 			else {
@@ -147,6 +154,8 @@ void view_data() {
 			std::string response;
 			std::vector <activity> result = {};
 			std::string output;
+			std::map<std::string, int> event_day = {};
+			int total = 0;
 
 			std::cout << "Enter an event name from the list below \n\n";
 			std::cout << names_string(names);
@@ -157,9 +166,17 @@ void view_data() {
 					if (response.compare(a.get_name()) == 0) {
 						result.push_back(a);
 						output.append(a.to_string() + "\n");
+						event_day[a.get_date()] += a.get_duration();
+						total += a.get_duration();
 					}
 				}
 				std::cout << "The search returned the following results: \n\n" << output;
+
+				std::map<std::string, int>::iterator itr;
+				std::cout << "Event breakdown: \n";
+				for (itr = event_day.begin(); itr != event_day.end(); itr++)
+					std::cout << itr->first << ": " << itr->second << " minutes \n";
+				std::cout << "\nTotal time spent: " << total << " minutes \n\n";
 				std::cout << "Press any key to return the menu. ";
 				std::cin >> response; std::cout << "\n";
 			}

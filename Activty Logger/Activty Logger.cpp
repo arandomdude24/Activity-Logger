@@ -68,9 +68,8 @@ int main()
 		std::cout << "Choose one of the following options: \n"
 			<< "1. Enter a new activity \n"
 			<< "2. View data \n"
-			<< "3. Edit data \n"
-			<< "4. Reset storage \n"
-			<< "5. Quit \n\n";
+			<< "3. Reset storage \n"
+			<< "4. Quit \n\n";
 
 		std::cin >> response;
 
@@ -82,12 +81,9 @@ int main()
 				view_data();
 				break;
 			case 3:
-				//edit_data();
-				break;
-			case 4:
 				reset();
 				break;
-			case 5:
+			case 4:
 				close = true;
 				break;
 			default:
