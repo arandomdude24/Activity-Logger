@@ -10,6 +10,7 @@
 #include <iterator>
 #include <map>
 
+//Asks the user for input to create and store a new activity object
 void new_entry() {
 	std::string id;
 	std::string name;
@@ -68,6 +69,7 @@ void new_entry() {
 		std::cout << "This isn't working";
 }
 
+//Allows the user to view activity objects based on different attributes
 void view_data() {
 	std::string response = "";
 	std::cout << "View data by: \n"
@@ -77,6 +79,7 @@ void view_data() {
 		<< "4. Unique Name \n";
 	std::cin >> response;
 
+	//Switch statement for the different menu options
 	switch (stoi(response)) {
 		case 1: {
 			std::string input;
@@ -206,6 +209,7 @@ void view_data() {
 	}
 }
 
+//Erases all of the activity objects so the text file is blank
 void reset() {
 	std::string response;
 	std::cout << "Are you sure you want to do this? (Y or N) ";
@@ -217,7 +221,7 @@ void reset() {
 		if (response == "Y") {
 			std::ofstream file("list.txt", std::ofstream::out | std::ofstream::trunc);
 			file.close();
-			std::cout << "File erased\n";
+			std::cout << "File erased\n\n";
 		}
 	}
 }

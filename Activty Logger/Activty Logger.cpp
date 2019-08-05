@@ -11,6 +11,7 @@
 #include <string>
 #include <algorithm>
 
+//Initalizing the global variables and global methods from "Activty Logger.h"
 std::vector<activity> list = {};
 std::vector<std::string> names = {};
 std::vector<std::string> categories = {};
@@ -29,6 +30,7 @@ std::string categories_string(std::vector<std::string> cat) {
 	return s;
 }
 
+//The main method
 int main()
 {
 	int response;
@@ -41,6 +43,7 @@ int main()
 	std::string line;
 	std::ifstream file("list.txt");
 
+	//This method parses the text file and stores the data into the global vectors
 	if (file.is_open()) {
 		std::vector<std::string> task = {};
 		while (std::getline(file, line)) {
@@ -64,6 +67,8 @@ int main()
 		file.close();
 	}
 
+	//The while loop displays the menu options and contains methods defined in "functions.cpp"
+	//The while loop only exits when the user wants to quit
 	while (!close) {
 		std::cout << "Choose one of the following options: \n"
 			<< "1. Enter a new activity \n"
