@@ -79,27 +79,24 @@ void view_data() {
 
 	switch (stoi(response)) {
 		case 1: {
-			std::string response;
-			std::vector<activity> result = {};
+			std::string input;
 			std::string output;
 			std::map<std::string, int> category_map = {};
 			std::map<std::string, int> event_map = {};
 
 			std::cout << "Enter a date (mm/dd/yyyy): ";
-			std::cin >> response;
+			std::cin >> input;
 
 			for (activity a : list) {
-				if (response.compare(a.get_date()) == 0) {
-					result.push_back(a);
+				if (input.compare(a.get_date()) == 0) {
 					output.append(a.to_string() + "\n");
 					category_map[a.get_category()] += a.get_duration();
 					event_map[a.get_name()] += a.get_duration();
 				}
 			}
-			if (output == "") {
-				std::cout << "No results were found. Press any key to return to menu. ";
-				std::cin >> response;
-			}
+
+			if (output == "") 
+				std::cout << "No results were found.";
 			else {
 				std::cout << "The search returned the following results: \n\n" << output << "\n";
 
@@ -110,29 +107,28 @@ void view_data() {
 				std::cout << "\nEvent breakdown: \n";
 				for (itr = event_map.begin(); itr != event_map.end(); itr++)
 					std::cout << itr->first << ": " << itr->second << " minutes \n";
-				
-				std::cout << "\nPress any key to return to the menu. ";
-				std::cin >> response;
-				std::cout << "\n";
 			}
-		}
+
+			std::cout << "\nPress any key to return to the menu. ";
+			std::cin >> input; std::cout << "\n";
 			break;
+		}
 		case 2: {
-			std::string response;
-			std::vector <activity> result = {};
+			std::string input;
 			std::string output;
 			std::map<std::string, int> category_day = {};
+			int total = 0;
 
 			std::cout << "Enter a category name from the list below \n\n";
 			std::cout << categories_string(categories);
-			std::cin >> response;
+			std::cin >> input;
 
-			if (std::find(categories.begin(), categories.end(), response) != categories.end()) {
+			if (std::find(categories.begin(), categories.end(), input) != categories.end()) {
 				for (activity a : list) {
-					if (response.compare(a.get_category()) == 0) {
-						result.push_back(a);
+					if (input.compare(a.get_category()) == 0) {
 						output.append(a.to_string() + "\n");
 						category_day[a.get_date()] += a.get_duration();
+						total += a.get_duration();
 					}
 				}
 				std::cout << "The search returned the following results: \n\n" << output;
@@ -141,30 +137,28 @@ void view_data() {
 				std::cout << "\nCategory breakdown: \n";
 				for (itr = category_day.begin(); itr != category_day.end(); itr++)
 					std::cout << itr->first << ": " << itr->second << " minutes \n";
-				std::cout << "\nPress any key to return the menu. "; 
-				std::cin >> response; std::cout << "\n";
+				std::cout << "\nTotal time spent: " << total << " minutes \n";
 			}
 			else {
-				std::cout << "That category does not exist. Press any button to return to the menu. ";
-				std::cin >> response; std::cout << "\n";
+				std::cout << "That category does not exist.";
 			}
+			std::cout << "\nPress any key to return to the menu. ";
+			std::cin >> input; std::cout << "\n";
 			break;
 		}
 		case 3: {
-			std::string response;
-			std::vector <activity> result = {};
+			std::string input;
 			std::string output;
 			std::map<std::string, int> event_day = {};
 			int total = 0;
 
 			std::cout << "Enter an event name from the list below \n\n";
 			std::cout << names_string(names);
-			std::cin >> response;
+			std::cin >> input;
 
-			if (std::find(names.begin(), names.end(), response) != names.end()) {
+			if (std::find(names.begin(), names.end(), input) != names.end()) {
 				for (activity a : list) {
-					if (response.compare(a.get_name()) == 0) {
-						result.push_back(a);
+					if (input.compare(a.get_name()) == 0) {
 						output.append(a.to_string() + "\n");
 						event_day[a.get_date()] += a.get_duration();
 						total += a.get_duration();
@@ -176,40 +170,34 @@ void view_data() {
 				std::cout << "Event breakdown: \n";
 				for (itr = event_day.begin(); itr != event_day.end(); itr++)
 					std::cout << itr->first << ": " << itr->second << " minutes \n";
-				std::cout << "\nTotal time spent: " << total << " minutes \n\n";
-				std::cout << "Press any key to return the menu. ";
-				std::cin >> response; std::cout << "\n";
+				std::cout << "\nTotal time spent: " << total << " minutes \n";
 			}
 			else {
-				std::cout << "That name does not exist. Press any button to return to the menu. ";
-				std::cin >> response; std::cout << "\n";
+				std::cout << "That name does not exist.";
 			}
+			std::cout << "\nPress any key to return to the menu. ";
+			std::cin >> input; std::cout << "\n";
 			break;
 		}
 		case 4: {
-			std::string id;
+			std::string input;
 			std::string output = "";
 
 			std::cout << "Enter an ID or a partial ID: ";
-			std::cin >> id;
+			std::cin >> input;
 
 			for (activity a : list) {
-				if (a.get_id().find(id) != std::string::npos) {
+				if (a.get_id().find(input) != std::string::npos) 
 					output.append(a.to_string() + "\n");
-				}
 			}
 
-			if (output == "") {
-				std::cout << "No results were found. Press any key to return to menu. ";
-				std::cin >> id;
-				std::cout << "\n";
-			}
-			else {
+			if (output == "") 
+				std::cout << "No results were found.";
+			else
 				std::cout << "The search returned the following results: \n\n" << output;
-				std::cout << "Press any key to return to the menu. ";
-				std::cin >> id;
-				std::cout << "\n";
-			}
+
+			std::cout << "\nPress any key to return to the menu. ";
+			std::cin >> input; std::cout << "\n";
 			break;
 		}
 		default:
