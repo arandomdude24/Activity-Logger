@@ -11,5 +11,6 @@ extern std::vector<std::string> categories;
 
 std::string names_string(std::vector<std::string> name);
 std::string categories_string(std::vector<std::string> cat);
+std::string duration_string(int length);
 
 #endif

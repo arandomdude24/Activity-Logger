@@ -1,4 +1,5 @@
 #include "activity.h"
+#include "Activty Logger.h"
 #include "time.h"
 #include <string>
 
@@ -61,6 +62,6 @@ std::string activity::to_string() {
 		"Time started: " + start.to_string() +
 		"Time ended: " + end.to_string() +
 		"Category: " + get_category() + "\n" +
-		"Duration: " + std::to_string(duration) + " minutes" +"\n";
+		"Duration: " + duration_string(get_duration());
 	return s;
 }

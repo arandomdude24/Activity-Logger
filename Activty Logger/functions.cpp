@@ -106,10 +106,10 @@ void view_data() {
 				std::map<std::string, int>::iterator itr;
 				std::cout << "Category breakdown: \n";
 				for (itr = category_map.begin(); itr != category_map.end(); itr++)
-					std::cout << itr->first << ": " << itr->second << " minutes \n";
+					std::cout << itr->first << ": " << duration_string(itr->second);
 				std::cout << "\nEvent breakdown: \n";
 				for (itr = event_map.begin(); itr != event_map.end(); itr++)
-					std::cout << itr->first << ": " << itr->second << " minutes \n";
+					std::cout << itr->first << ": " << duration_string(itr->second);
 			}
 
 			std::cout << "\nPress any key to return to the menu. ";
@@ -139,8 +139,8 @@ void view_data() {
 				std::map<std::string, int>::iterator itr;
 				std::cout << "\nCategory breakdown: \n";
 				for (itr = category_day.begin(); itr != category_day.end(); itr++)
-					std::cout << itr->first << ": " << itr->second << " minutes \n";
-				std::cout << "\nTotal time spent: " << total << " minutes \n";
+					std::cout << itr->first << ": " << duration_string(itr->second);
+				std::cout << "\nTotal time spent: " << duration_string(total);
 			}
 			else {
 				std::cout << "That category does not exist.";
@@ -172,8 +172,8 @@ void view_data() {
 				std::map<std::string, int>::iterator itr;
 				std::cout << "Event breakdown: \n";
 				for (itr = event_day.begin(); itr != event_day.end(); itr++)
-					std::cout << itr->first << ": " << itr->second << " minutes \n";
-				std::cout << "\nTotal time spent: " << total << " minutes \n";
+					std::cout << itr->first << ": " << duration_string(itr->second);
+				std::cout << "\nTotal time spent: " << duration_string(total);
 			}
 			else {
 				std::cout << "That name does not exist.";

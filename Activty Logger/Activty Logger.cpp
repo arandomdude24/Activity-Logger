@@ -30,6 +30,19 @@ std::string categories_string(std::vector<std::string> cat) {
 	return s;
 }
 
+std::string duration_string(int length) {
+	std::string s;
+	if (length < 60)
+		s = std::to_string(length) + " minutes \n";
+	else if (length < 120)
+		s = std::to_string(length / 60) + " hour and " +
+			std::to_string(length % 60) + " minutes \n";
+	else
+		s = std::to_string(length / 60) + " hours and " +
+		std::to_string(length % 60) + " minutes \n";
+	return s;
+}
+
 //The main method
 int main()
 {
